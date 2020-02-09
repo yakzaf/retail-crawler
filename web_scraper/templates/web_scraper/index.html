@@ -1,0 +1,79 @@
+{% load static %}
+{% load scraper_extras %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>H&M Listings</title>
+        <script src="{% static 'web_scraper/js/jquery-3.4.1.min.js' %}"></script>
+        <script src="{% static 'web_scraper/js/items-disp.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'web_scraper/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'web_scraper/css/extra.css' %}" class="stylesheet">
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Retail Store Web-scraper</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" role="button" id="navbarDropdown" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">H&M</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a href="{% url 'web_scraper:index' %}" class="dropdown-item">Men</a>
+                    <a href="#" class="dropdown-item disabled">Divided (Coming soon)</a>
+                    <a href="#" class="dropdown-item disabled">Women (Coming soon)</a>
+                    <a href="#" class="dropdown-item disabled">Kids (Coming soon)</a>
+                    <a href="#" class="dropdown-item disabled">H&M Home (Coming soon)</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" role="button" id="navbarDropdown" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Adidas</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a href="#" class="dropdown-item disabled">Men (Coming soon)</a>
+                    <a href="#" class="dropdown-item disabled">Divided (Coming soon)</a>
+                    <a href="#" class="dropdown-item disabled">Kids (Coming soon)</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+        <div class="container-fluid">
+
+            {% for i in range %}
+
+            {% if forloop.counter0|divisibleby:3 %}
+                <div class="card-deck">
+
+            {% endif %}
+
+                <div class="col" id="item-column">
+
+                        <div class="card my-2" >
+
+                            <a href="{{ item_link_list|index:i }}" id="item">
+                                <img alt="H&M item" class="card-img-top" src="{{ image_source_list|index:i }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ title_list|index:i }}</h5>
+                                <p class="card-text"><del>${{ reg_price_list|index:i }}</del></p>
+                                <p class="card-text">${{ sale_price_list|index:i }}</p>
+                            </div>
+                        </div>
+
+                </div>
+
+            {% if forloop.counter|divisibleby:3 or forloop.last %}
+                </div>
+            {% endif %}
+
+            {% endfor %}
+
+            <div id="loadMore">
+                <button type="button" class="btn btn-secondary btn-block my-2" id="loadBtn">Load more</button>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
