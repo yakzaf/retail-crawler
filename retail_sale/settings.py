@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS')
 
 # Application definition
 
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'rest_framework',
 ]
 
@@ -57,14 +56,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-DEBUG_TOOLBAR_CONFIG = {
-    # Toolbar options
-    'RESULTS_CACHE_SIZE': 100,
-    'SHOW_COLLAPSED': True,
-    # Panel options
-    'SQL_WARNING_THRESHOLD': 100,   # milliseconds
-}
 
 ROOT_URLCONF = 'retail_sale.urls'
 
@@ -134,9 +125,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT=os.path.join(BASE_DIR, 'web_scraper/static/')
 STATIC_URL = '/static/'
 CELERY_BROKER_URL = 'amqp://localhost'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
 
 MEDIA_URL = '/media/'

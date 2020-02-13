@@ -28,7 +28,9 @@ def redirect_view(request):
 
 def index(request):
     amount = scraper.hm_url_updater()
-    print('index code')
+    print(amount)
+    #manual = scraper.Hm('https://www2.hm.com/en_us/sale/men/view-all.html')
+    #manual.update_items()
     hm_db_table = HmTable.objects.all().order_by('pk')[:amount]
     title_list = []
     item_link_list = []
